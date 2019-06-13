@@ -9,6 +9,7 @@ describe 'sqlcli' do
         {
           version: '0.7.1',
         }
+      end
 
       it { is_expected.to compile }
       it { is_expected.to contain_class('archive') }
