@@ -35,7 +35,10 @@ class sqlcli (
   }
 
   exec {'/usr/bin/go get -u -tags all github.com/xo/usql':
-    require => Package['golang'],
+    require     => Package['golang'],
+    environment => ['GOPATH=/root/go'],
+    timeout     => '800',
+    creates     => '/root/go/bin/usql'
   }
 
 
