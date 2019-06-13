@@ -18,21 +18,29 @@ class sqlcli (
 
   $install_path        = '/opt/usql'
   $package_name        = 'usql'
-  $repository_url      = 'https://github.com/xo/usql/releases/download'
+  $repository_url      = "https://github.com/xo/usql/releases/download/v${version}"
   $archive_name        = "${package_name}-${version}-linux-amd64.tar.bz2"
   $usql_package_source = "${repository_url}/${archive_name}"
+
+  package {'bzip2':
+    ensure => present,
+  }
+
+  package {'libicu':
+    ensure => present,
+  }
 
   file{$install_path:
     ensure => directory,
   }
-
   -> archive { $archive_name:
     path         => "/tmp/${archive_name}",
     source       => $usql_package_source,
     extract      => true,
     extract_path => $install_path,
-    creates      => "${install_path}/${package_name}-${version}",
+    creates      => "${install_path}/usql",
     cleanup      => true,
+    require      => [Package['bzip2'],Package['libicu']],
   }
 
 }

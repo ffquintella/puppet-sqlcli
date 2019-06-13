@@ -1,10 +1,12 @@
 {
   "name": "ffquintella-sqlcli",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "author": "Felipe Quintella",
-  "summary": "",
+  "summary": "This module acts as a multi database sqlclient ",
   "license": "GPL-3.0-or-later",
-  "source": "",
+  "source": "https://github.com/ffquintella/puppet-sqlcli",
+  "project_page": "https://github.com/ffquintella/puppet-sqlcli/wiki",
+  "issues_url": "https://github.com/ffquintella/puppet-sqlcli/issues",
   "dependencies": [
     {
       "name": "puppet/archive",
