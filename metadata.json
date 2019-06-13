@@ -8,10 +8,6 @@
   "project_page": "https://github.com/ffquintella/puppet-sqlcli/wiki",
   "issues_url": "https://github.com/ffquintella/puppet-sqlcli/issues",
   "dependencies": [
-    {
-      "name": "puppet/archive",
-      "version_requirement": ">= 4.0.0 < 5.0.0"
-    }
   ],
   "operatingsystem_support": [
     {
@@ -42,7 +38,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.10.0 < 7.0.0"
+      "version_requirement": ">= 5.0.0 < 7.0.0"
     }
   ],
   "pdk-version": "1.9.1",

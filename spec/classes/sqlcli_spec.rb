@@ -12,8 +12,10 @@ describe 'sqlcli' do
       end
 
       it { is_expected.to compile }
-      it { is_expected.to contain_class('archive') }
+      # it { is_expected.to contain_class('archive') }
+      it { is_expected.to contain_package('golang') }
       it { is_expected.to contain_file('/opt/usql') }
+      it { is_expected.to contain_file('/opt/usql/usql') }
     end
   end
 end

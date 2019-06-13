@@ -1,20 +1,16 @@
-# A description of what this class does
+# This class installs the required tools to use sqlcli
 #
-# @summary A short summary of the purpose of this class
+# @summary This class installs the required tools to use sqlcli
 #
 # @example
 #   include sqlcli
 #
-# @param [String] db_db_owner_password 
-#   The password of the database owner user
+# @param [String] version 
+#   Version of the usql instalation defaults to 0.7.1
 #
 class sqlcli (
   $version = '0.7.1',
 ) {
-
-  #https://github.com/xo/usql/releases/download/v0.7.1/usql-0.7.1-linux-amd64.tar.bz2
-
-  include 'archive'
 
   $install_path        = '/opt/usql'
   $package_name        = 'usql'
@@ -42,20 +38,9 @@ class sqlcli (
   }
 
   -> file { "${install_path}/usql":
-    ensure => link, 
+    ensure => link,
     target => '/root/go/bin/usql',
   }
 
-
-  /*
-  -> archive { $archive_name:
-    path         => "/tmp/${archive_name}",
-    source       => $usql_package_source,
-    extract      => true,
-    extract_path => $install_path,
-    creates      => "${install_path}/usql",
-    cleanup      => true,
-    require      => [Package['bzip2'],Package['libicu']],
-  }*/
 
 }
