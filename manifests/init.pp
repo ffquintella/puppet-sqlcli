@@ -26,13 +26,20 @@ class sqlcli (
     ensure => present,
   }
 
-  package {'libicu':
+  package {'golang':
     ensure => present,
   }
 
   file{$install_path:
     ensure => directory,
   }
+
+  exec {'/usr/bin/go get -u -tags all github.com/xo/usql':
+    require => Package['golang'],
+  }
+
+
+  /*
   -> archive { $archive_name:
     path         => "/tmp/${archive_name}",
     source       => $usql_package_source,
@@ -41,6 +48,6 @@ class sqlcli (
     creates      => "${install_path}/usql",
     cleanup      => true,
     require      => [Package['bzip2'],Package['libicu']],
-  }
+  }*/
 
 }

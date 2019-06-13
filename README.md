@@ -24,6 +24,8 @@ This module acts as a SQL client to allow the execution of comands on differente
 
 This module will install usql (https://github.com/xo/usql) to use it as it's base.
 
+It will also install golang as it is needed.
+
 
 ### Beginning with sqlcli
 
