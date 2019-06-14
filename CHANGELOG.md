@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.0.1
+
+First stable release
+
+**Features**
+
+* Instalation of dependecies
+* Sql command execution (every time or once)
+* Sql script execution
+
+**Bugfixes**
+
+**Known Issues**
+
 ## Release 0.X.X
 
 These are initial development releases and are UNSTABLE. Do not use.
