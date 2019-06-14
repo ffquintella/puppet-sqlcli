@@ -44,7 +44,7 @@ Execute
 This type executes a command
 
 ```
-sqlcli::execute{'select * from xpto;':
+sqlcli::command{'select * from xpto;':
   db_type => 'mysql',
   db_user => 'user',
   db_pwd  => 'user123',

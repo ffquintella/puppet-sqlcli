@@ -3,7 +3,10 @@
 # @summary A short summary of the purpose of this defined type.
 #
 # @example
-#   sqlcli::command { 'namevar': }
+#   sqlcli::command { 'select * from foo': 
+#      database_connection => { '' => ''
+#      },
+#   }
 #
 # @param [Hash] database_connection 
 #   A hash containing the details to the database connection

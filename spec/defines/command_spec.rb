@@ -21,12 +21,14 @@ describe 'sqlcli::command' do
       let(:facts) { os_facts }
 
       it { is_expected.to compile }
-      it { is_expected.to contain_file('/var/run/puppetlabs/.sqcli_ctrl')}
-      it { is_expected.to contain_exec('ExecuteSqlCmd_select * from boo')
-              .with({
-                'command' => 'usql mssql://test:test123@host1:1433/test1 -c "select * from boo"',
-                'cwd' => '/opt/usql',
-                }) }
+      it { is_expected.to contain_file('/var/run/puppetlabs/.sqcli_ctrl') }
+      it {
+        is_expected.to contain_exec('ExecuteSqlCmd_select * from boo')
+          .with(
+            'command' => 'usql mssql://test:test123@host1:1433/test1 -c "select * from boo"',
+            'cwd' => '/opt/usql',
+          )
+      }
     end
   end
 end
