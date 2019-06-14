@@ -49,7 +49,7 @@ define sqlcli::command(
   $db_schema = $database_connection['db_schema']
 
   # usql mssql://user:pass@host:port/dbname
-  $usql_cmd = "usql ${db_type}://${db_user}:${db_pwd}@${db_hostname}:${db_port}/${db_schema} -c \"${command}\" "
+  $usql_cmd = "usql ${db_type}://${db_user}:${db_pwd}@${db_hostname}:${db_port}/${db_schema} -c \"${command}\""
 
   if $run_once {
     $hash = md5($usql_cmd)
@@ -58,6 +58,12 @@ define sqlcli::command(
   else {
     $hash = '--'
     $final_usql_cmd = $usql_cmd
+  }
+
+  exec { "ExecuteSqlCmd_${$title}":
+    command => $final_usql_cmd,
+    cwd     => '/opt/usql',
+    creates => "/var/run/puppetlabs/.sqcli_ctrl/${hash}",
   }
 
 }
