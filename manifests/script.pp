@@ -3,16 +3,10 @@
 # @summary A short summary of the purpose of this defined type.
 #
 # @example
-#   sqlcli::command { 'select * from foo': 
-#      database_connection => { 
-#             'db_type' => 'mssql',
-#             'db_user' => 'tuser',
-#             'db_pwd'  => '123',
-#             'db_hostname' => 'superdb',
-#             'db_port' => 1433,
-#             'db_schema' => 'schm1',
+#   sqlcli::script { 'select * from foo': 
+#      database_connection => { '' => ''
 #      },
-#      run_once = true,
+#      script_file => '/tmp/script.sql',
 #   }
 #
 # @param [Hash] database_connection 
@@ -34,14 +28,15 @@
 # @param [Boolean] run_once 
 #   If the command is to be run only once
 #
-# @param [String] command 
-#   If the command to be executed
+# @param [String] script_file 
+#   The path to the script file
 #
-define sqlcli::command(
+define sqlcli::script(
   Hash $database_connection = undef,
   Boolean $run_once = true,
-  String $command = $title,
+  String $script_file = $title,
 ) {
+
 
   Exec {
     path => ['/opt/usql','/usr/bin', '/sbin', '/bin', '/usr/sbin', '/usr/local/bin']
@@ -59,7 +54,7 @@ define sqlcli::command(
   $db_schema = $database_connection['db_schema']
 
   # usql mssql://user:pass@host:port/dbname
-  $usql_cmd = "usql ${db_type}://${db_user}:${db_pwd}@${db_hostname}:${db_port}/${db_schema} -c \"${command}\""
+  $usql_cmd = "usql ${db_type}://${db_user}:${db_pwd}@${db_hostname}:${db_port}/${db_schema} -f \"${script_file}\""
 
   if $run_once {
     $hash = md5($usql_cmd)
@@ -70,10 +65,11 @@ define sqlcli::command(
     $final_usql_cmd = $usql_cmd
   }
 
-  exec { "ExecuteSqlCmd_${$title}":
+  exec { "ExecuteSqlScript_${$title}":
     command => $final_usql_cmd,
     cwd     => '/opt/usql',
     creates => "/var/run/puppetlabs/.sqcli_ctrl/${hash}",
   }
+
 
 }

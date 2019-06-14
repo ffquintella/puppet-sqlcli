@@ -44,10 +44,30 @@ Execute
 This type executes a command
 
 ```
-sqlcli::command{'select * from xpto;':
-  db_type => 'mysql',
-  db_user => 'user',
-  db_pwd  => 'user123',
+sqlcli::command { 'select * from foo': 
+  database_connection => { 
+          'db_type' => 'mssql',
+          'db_user' => 'tuser',
+          'db_pwd'  => '123',
+          'db_hostname' => 'superdb',
+          'db_port' => 1433,
+          'db_schema' => 'schm1',
+  },
+  run_once = true,
+}
+```
+
+```
+sqlcli::script { '/tmp/script.sql': 
+  database_connection => { 
+          'db_type' => 'mssql',
+          'db_user' => 'tuser',
+          'db_pwd'  => '123',
+          'db_hostname' => 'superdb',
+          'db_port' => 1433,
+          'db_schema' => 'schm1',
+  },
+  run_once = true,
 }
 ```
 
