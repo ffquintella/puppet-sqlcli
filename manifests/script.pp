@@ -4,7 +4,13 @@
 #
 # @example
 #   sqlcli::script { 'select * from foo': 
-#      database_connection => { '' => ''
+#      database_connection => { 
+#             'db_type' => 'mssql',
+#             'db_user' => 'tuser',
+#             'db_pwd'  => '123',
+#             'db_hostname' => 'superdb',
+#             'db_port' => 1433,
+#             'db_schema' => 'schm1',
 #      },
 #      script_file => '/tmp/script.sql',
 #   }
@@ -31,7 +37,7 @@
 # @param [String] script_file 
 #   The path to the script file
 #
-define sqlcli::script(
+define sqlcli::script (
   Hash $database_connection = undef,
   Boolean $run_once = true,
   String $script_file = $title,
