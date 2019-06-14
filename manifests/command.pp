@@ -41,11 +41,18 @@ define sqlcli::command(
     ensure => directory,
   }
 
-  $usql_cmd = ''
+  $db_type = $database_connection['db_type']
+  $db_user = $database_connection['db_user']
+  $db_pwd = $database_connection['db_pwd']
+  $db_hostname = $database_connection['db_hostname']
+  $db_port = $database_connection['db_port']
+  $db_schema = $database_connection['db_schema']
 
+  # usql mssql://user:pass@host:port/dbname
+  $usql_cmd = "usql ${db_type}://${db_user}:${db_pwd}@${db_hostname}:${db_port}/${db_schema} -c \"${command}\" "
 
   if $run_once {
-    $hash = md5($command)
+    $hash = md5($usql_cmd)
     $final_usql_cmd = "${usql_cmd}; touch /var/run/puppetlabs/.sqcli_ctrl/${hash}"
   }
   else {
