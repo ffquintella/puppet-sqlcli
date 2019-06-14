@@ -10,7 +10,7 @@
 #             'db_pwd'  => '123',
 #             'db_hostname' => 'superdb',
 #             'db_port' => 1433,
-#             'db_schema' => 'schm1',
+#             'db_name' => 'schm1',
 #      },
 #      run_once = true,
 #   }
@@ -28,8 +28,8 @@
 #   The database hostname
 # @option database_connection [String] db_port
 #   The database port 
-# @option database_connection [String] db_schema
-#   The database schema
+# @option database_connection [String] db_name
+#   The database name
 #
 # @param [Boolean] run_once 
 #   If the command is to be run only once
@@ -56,10 +56,10 @@ define sqlcli::command(
   $db_pwd = $database_connection['db_pwd']
   $db_hostname = $database_connection['db_hostname']
   $db_port = $database_connection['db_port']
-  $db_schema = $database_connection['db_schema']
+  $db_name = $database_connection['db_name']
 
   # usql mssql://user:pass@host:port/dbname
-  $usql_cmd = "usql ${db_type}://${db_user}:${db_pwd}@${db_hostname}:${db_port}/${db_schema} -c \"${command}\""
+  $usql_cmd = "usql ${db_type}://${db_user}:${db_pwd}@${db_hostname}:${db_port}/${db_name} -c \"${command}\""
 
   if $run_once {
     $hash = md5($usql_cmd)

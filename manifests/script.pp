@@ -28,7 +28,7 @@
 #   The database hostname
 # @option database_connection [String] db_port
 #   The database port 
-# @option database_connection [String] db_schema
+# @option database_connection [String] db_name
 #   The database schema
 #
 # @param [Boolean] run_once 
@@ -57,10 +57,10 @@ define sqlcli::script (
   $db_pwd = $database_connection['db_pwd']
   $db_hostname = $database_connection['db_hostname']
   $db_port = $database_connection['db_port']
-  $db_schema = $database_connection['db_schema']
+  $db_name = $database_connection['db_name']
 
   # usql mssql://user:pass@host:port/dbname
-  $usql_cmd = "usql ${db_type}://${db_user}:${db_pwd}@${db_hostname}:${db_port}/${db_schema} -f \"${script_file}\""
+  $usql_cmd = "usql ${db_type}://${db_user}:${db_pwd}@${db_hostname}:${db_port}/${db_name} -f \"${script_file}\""
 
   if $run_once {
     $hash = md5($usql_cmd)

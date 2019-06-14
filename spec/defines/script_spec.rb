@@ -10,7 +10,7 @@ describe 'sqlcli::script' do
         db_pwd: 'test123',
         db_hostname: 'host1',
         db_port: '1433',
-        db_schema: 'test1',
+        db_name: 'test1',
       },
       run_once: false,
     }
