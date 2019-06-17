@@ -48,8 +48,10 @@ define sqlcli::script (
     path => ['/opt/usql','/usr/bin', '/sbin', '/bin', '/usr/sbin', '/usr/local/bin']
   }
 
-  file{'/var/run/puppetlabs/.sqcli_ctrl':
-    ensure => directory,
+  if !defined(File['/var/run/puppetlabs/.sqcli_ctrl']){
+    file{'/var/run/puppetlabs/.sqcli_ctrl':
+      ensure => directory,
+    }
   }
 
   $db_type = $database_connection['db_type']
