@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.0.3
+
+Bug fixes
+
+**Features**
+
+**Bugfixes**
+
+* Fixes a duplicated file definition preventing the use of the defined types more then once
+
+**Known Issues**
+
 ## Release 1.0.2
 
 Changes in a parameter
