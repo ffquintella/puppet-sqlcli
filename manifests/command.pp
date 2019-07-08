@@ -72,13 +72,6 @@ define sqlcli::command(
   $db_port = $database_connection['db_port']
   $db_name = $database_connection['db_name']
 
-  $db_type = $database_connection['db_type']
-  $db_user = $database_connection['db_user']
-  $db_pwd = $database_connection['db_pwd']
-  $db_hostname = $database_connection['db_hostname']
-  $db_port = $database_connection['db_port']
-  $db_name = $database_connection['db_name']
-
   if $use_ccm_integration {
     $ccm_srvc = $database_connection['ccm_srvc']
     $ccm_key = $database_connection['ccm_key']
