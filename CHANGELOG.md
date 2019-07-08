@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.0.9
+
+Bugfixes
+
+**Features**
+
+**Bugfixes**
+
+* Fixed command calling
+
+**Known Issues**
+
 ## Release 1.0.6
 
 Bugfixes
