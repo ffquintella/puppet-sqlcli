@@ -1,7 +1,17 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## Release 1.0.5
 
+New release with support for ccm integration
+
+**Features**
+
+* CCM Integration
+
+**Bugfixes**
+
+**Known Issues**
 ## Release 1.0.4
 
 Same as before
