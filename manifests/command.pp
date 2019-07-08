@@ -82,7 +82,7 @@ define sqlcli::command(
         ccm_srv_record => $ccm_srvc,
       }
     }
-    $usql_cmd = "CCMPWD=$(/usr/share/ccm/ccm_reader.rb ${ccm_api_key} credential ${ccm_key} ${ccm_env}); /opt/usql/usql ${db_type}://${db_user}:\$CCMPWD@${db_hostname}:${db_port}/${db_name} -c \"${command}\""
+    $usql_cmd = "bash -c \"CCMPWD=$(/usr/share/ccm/ccm_reader.rb ${ccm_api_key} credential ${ccm_key} ${ccm_env}); /opt/usql/usql ${db_type}://${db_user}:\$CCMPWD@${db_hostname}:${db_port}/${db_name} -c \\\"${command}\\\"\""
   }else{
     # usql mssql://user:pass@host:port/dbname
     $usql_cmd = "/opt/usql/usql ${db_type}://${db_user}:${db_pwd}@${db_hostname}:${db_port}/${db_name} -c \"${command}\""

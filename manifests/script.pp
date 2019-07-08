@@ -83,7 +83,7 @@ define sqlcli::script (
         ccm_srv_record => $ccm_srvc,
       }
     }
-    $usql_cmd = "CCMPWD=$(/usr/share/ccm/ccm_reader.rb ${ccm_api_key} credential ${ccm_key} ${ccm_env}); /opt/usql/usql ${db_type}://${db_user}:\$CCMPWD@${db_hostname}:${db_port}/${db_name} -f \"${script_file}\""
+    $usql_cmd = "bash -c \"CCMPWD=$(/usr/share/ccm/ccm_reader.rb ${ccm_api_key} credential ${ccm_key} ${ccm_env}); /opt/usql/usql ${db_type}://${db_user}:\$CCMPWD@${db_hostname}:${db_port}/${db_name} -f \\\"${script_file}\\\"\""
     notify {$usql_cmd:}
 
   }else{
