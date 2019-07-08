@@ -77,8 +77,10 @@ define sqlcli::command(
     $ccm_key = $database_connection['ccm_key']
     $ccm_env = $database_connection['ccm_env']
     $ccm_api_key = $database_connection['ccm_api_key']
-    class {'ccm_cli::api':
-      ccm_srv_record => $ccm_srvc,
+    if !defined(Class['ccm_cli::api']){
+      class {'ccm_cli::api':
+        ccm_srv_record => $ccm_srvc,
+      }
     }
     $usql_cmd = "CCMPWD=$(/usr/share/ccm/ccm_reader.rb ${ccm_api_key} credential ${ccm_key} ${ccm_env}); usql ${db_type}://${db_user}:\$CCMPWD@${db_hostname}:${db_port}/${db_name} -c \"${command}\""
   }else{
