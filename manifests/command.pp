@@ -34,12 +34,16 @@
 # @param [Boolean] run_once 
 #   If the command is to be run only once
 #
+# @param [Boolean] use_ccm_integration 
+#   If you wish to use ccm integration to store the passwords
+#
 # @param [String] command 
 #   If the command to be executed
 #
 define sqlcli::command(
   Hash $database_connection = undef,
   Boolean $run_once = true,
+  Boolean $use_ccm_integration = false,
   String $command = $title,
 ) {
 

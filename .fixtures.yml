@@ -3,4 +3,4 @@
 ---
 fixtures:
   forge_modules:
-#    sqlcli: "ffquintella/sqlcli"
+    ccm_cli: "ffquintella/ccm_cli"

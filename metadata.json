@@ -3,11 +3,15 @@
   "version": "1.0.4",
   "author": "Felipe Quintella",
   "summary": "This module acts as a multi database sqlclient ",
-  "license": "GPL-3.0-or-later",
+  "license": "BSD-3-Clause",
   "source": "https://github.com/ffquintella/puppet-sqlcli",
   "project_page": "https://github.com/ffquintella/puppet-sqlcli/wiki",
   "issues_url": "https://github.com/ffquintella/puppet-sqlcli/issues",
   "dependencies": [
+    {
+      "name": "ffquintella/ccm_cli",
+      "version_requirement": ">= 0.1.4 < 2.0.0"
+    }
   ],
   "operatingsystem_support": [
     {
@@ -41,7 +45,7 @@
       "version_requirement": ">= 5.0.0 < 7.0.0"
     }
   ],
-  "pdk-version": "1.9.1",
-  "template-url": "file:///opt/puppetlabs/pdk/share/cache/pdk-templates.git",
-  "template-ref": "1.9.1-0-g6945d31"
+  "pdk-version": "1.11.0",
+  "template-url": "pdk-default#1.11.0",
+  "template-ref": "1.11.0-0-g67637d4"
 }
