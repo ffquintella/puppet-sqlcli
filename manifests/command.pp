@@ -30,6 +30,14 @@
 #   The database port 
 # @option database_connection [String] db_name
 #   The database name
+# @option database_connection [String] ccm_srvc (optional)
+#   The ccm srvc dns record
+# @option database_connection [String] ccm_key (optional)
+#   The ccm key record to get 
+# @option database_connection [String] ccm_env (optional)
+#   The ccm environment 
+# @option database_connection [String] ccm_api_key (optional)
+#   The ccm api key record to get 
 #
 # @param [Boolean] run_once 
 #   If the command is to be run only once
@@ -64,8 +72,26 @@ define sqlcli::command(
   $db_port = $database_connection['db_port']
   $db_name = $database_connection['db_name']
 
-  # usql mssql://user:pass@host:port/dbname
-  $usql_cmd = "usql ${db_type}://${db_user}:${db_pwd}@${db_hostname}:${db_port}/${db_name} -c \"${command}\""
+  $db_type = $database_connection['db_type']
+  $db_user = $database_connection['db_user']
+  $db_pwd = $database_connection['db_pwd']
+  $db_hostname = $database_connection['db_hostname']
+  $db_port = $database_connection['db_port']
+  $db_name = $database_connection['db_name']
+
+  if $use_ccm_integration {
+    $ccm_srvc = $database_connection['ccm_srvc']
+    $ccm_key = $database_connection['ccm_key']
+    $ccm_env = $database_connection['ccm_env']
+    $ccm_api_key = $database_connection['ccm_api_key']
+    class {'ccm_cli::api':
+      ccm_srv_record => $ccm_srvc,
+    }
+    $usql_cmd = "CCMPWD=$(/usr/share/ccm/ccm_reader.rb ${ccm_api_key} credential ${ccm_key} ${ccm_env}); usql ${db_type}://${db_user}:\$CCMPWD@${db_hostname}:${db_port}/${db_name} -c \"${command}\""
+  }else{
+    # usql mssql://user:pass@host:port/dbname
+    $usql_cmd = "usql ${db_type}://${db_user}:${db_pwd}@${db_hostname}:${db_port}/${db_name} -c \"${command}\""
+  }
 
   if $run_once {
     $hash = md5($usql_cmd)
@@ -76,10 +102,19 @@ define sqlcli::command(
     $final_usql_cmd = $usql_cmd
   }
 
-  exec { "ExecuteSqlCmd_${$title}":
-    command => $final_usql_cmd,
-    cwd     => '/opt/usql',
-    creates => "/var/run/puppetlabs/.sqcli_ctrl/${hash}",
+  if $use_ccm_integration {
+    exec { "ExecuteSqlCmd_${$title}":
+      command => $final_usql_cmd,
+      cwd     => '/opt/usql',
+      creates => "/var/run/puppetlabs/.sqcli_ctrl/${hash}",
+      require => Class['ccm_cli::api'],
+    }
+  }else{
+    exec { "ExecuteSqlCmd_${$title}":
+      command => $final_usql_cmd,
+      cwd     => '/opt/usql',
+      creates => "/var/run/puppetlabs/.sqcli_ctrl/${hash}",
+    }
   }
 
 }
