@@ -1,6 +1,19 @@
 # Changelog
 
 All notable changes to this project will be documented in this file.
+
+## Release 1.0.6
+
+Bugfixes
+
+**Features**
+
+**Bugfixes**
+
+* Fixed class redefinition ccm_cli
+
+**Known Issues**
+
 ## Release 1.0.5
 
 New release with support for ccm integration
