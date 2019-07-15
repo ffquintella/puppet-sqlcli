@@ -72,7 +72,8 @@ define sqlcli::script (
   }
 
   concat {"/var/run/puppetlabs/.sqcli_scripts/execute_${title}.sh":
-    mode => '0755',
+    mode    => '0755',
+    require => File['/var/run/puppetlabs/.sqcli_scripts'],
   }
 
   concat::fragment {"execute_${title}_header":
