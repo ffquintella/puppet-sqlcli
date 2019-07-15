@@ -102,14 +102,14 @@ define sqlcli::script (
   if $use_ccm_integration {
     exec { "ExecuteSqlScript_${$title}":
       command => $final_usql_cmd,
-      cwd     => '/opt/usql',
+      cwd     => '/usr/share/ccm',
       creates => "/var/run/puppetlabs/.sqcli_ctrl/${hash}",
       require => Class['ccm_cli::api'],
     }
   }else{
     exec { "ExecuteSqlScript_${$title}":
       command => $final_usql_cmd,
-      cwd     => '/opt/usql',
+      cwd     => '/usr/share/ccm',
       creates => "/var/run/puppetlabs/.sqcli_ctrl/${hash}",
     }
   }

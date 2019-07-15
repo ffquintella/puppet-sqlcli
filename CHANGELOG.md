@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.1.3
+
+**Features**
+
+**Bugfixes**
+
+* Fixed ccm integration
+
+**Known Issues**
+
 ## Release 1.1.1
 
 First stable release with ccm integration
