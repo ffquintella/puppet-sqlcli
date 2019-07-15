@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'sqlcli::command' do
-  let(:title) { 'select * from boo' }
+  let(:title) { 'test' }
   let(:params) do
     {
       database_connection: {
@@ -23,10 +23,10 @@ describe 'sqlcli::command' do
       it { is_expected.to compile }
       it { is_expected.to contain_file('/var/run/puppetlabs/.sqcli_ctrl') }
       it {
-        is_expected.to contain_exec('ExecuteSqlCmd_select * from boo')
+        is_expected.to contain_exec('ExecuteSqlCmd_test')
           .with(
-            'command' => 'usql mssql://test:test123@host1:1433/test1 -c "select * from boo"',
-            'cwd' => '/opt/usql',
+            'command' => '/var/run/puppetlabs/.sqcli_scripts/execute_test.sh',
+            'cwd' => '/usr/share/ccm',
           )
       }
     end

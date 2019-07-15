@@ -31,8 +31,8 @@ describe 'sqlcli::script' do
       it {
         is_expected.to contain_exec('ExecuteSqlScript_/tmp/script.sql')
           .with(
-            'command' => 'CCMPWD=$(/usr/share/ccm/ccm_reader.rb DSFGSDJGFDSHFDFSDF credential test:db1 Desenvolvimento); usql mssql://test:$CCMPWD@host1:1433/test1 -f "/tmp/script.sql"',
-            'cwd' => '/opt/usql',
+            'command' => '/var/run/puppetlabs/.sqcli_scripts/execute__tmp_script.sql.sh',
+            'cwd' => '/usr/share/ccm',
           )
       }
     end
