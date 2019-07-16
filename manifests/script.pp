@@ -70,14 +70,15 @@ define sqlcli::script (
       ensure => directory,
     }
   }
+  $clean_title = regsubst(regsubst($title, ' ', '_', 'G'), '/', '_', 'G')
 
-  concat {"/var/run/puppetlabs/.sqcli_scripts/execute_${title}.sh":
+  concat {"/var/run/puppetlabs/.sqcli_scripts/execute_${clean_title}.sh":
     mode    => '0755',
     require => File['/var/run/puppetlabs/.sqcli_scripts'],
   }
 
-  concat::fragment {"execute_${title}_header":
-    target  => "/var/run/puppetlabs/.sqcli_scripts/execute_${title}.sh",
+  concat::fragment {"execute_${clean_title}_header":
+    target  => "/var/run/puppetlabs/.sqcli_scripts/execute_${clean_title}.sh",
     content => '#!/bin/env bash',
     order   => '01',
   }
@@ -100,8 +101,8 @@ define sqlcli::script (
       }
     }
 
-    concat::fragment {"execute_${title}_command":
-      target  => "/var/run/puppetlabs/.sqcli_scripts/execute_${title}.sh",
+    concat::fragment {"execute_${clean_title}_command":
+      target  => "/var/run/puppetlabs/.sqcli_scripts/execute_${clean_title}.sh",
       content => "CCMPWD=$(/usr/share/ccm/ccm_reader.rb ${ccm_api_key} credential ${ccm_key} ${ccm_env}) \n
  /opt/usql/usql ${db_type}://${db_user}:\$CCMPWD@${db_hostname}:${db_port}/${db_name} -f \"${script_file}\" ",
       order   => '10',
@@ -112,8 +113,8 @@ define sqlcli::script (
 
   }else{
 
-    concat::fragment {"execute_${title}_command":
-      target  => "/var/run/puppetlabs/.sqcli_scripts/execute_${title}.sh",
+    concat::fragment {"execute_${clean_title}_command":
+      target  => "/var/run/puppetlabs/.sqcli_scripts/execute_${clean_title}.sh",
       content => "/opt/usql/usql ${db_type}://${db_user}:${db_pwd}@${db_hostname}:${db_port}/${db_name} -f \"${script_file}\"",
       order   => '10',
     }
@@ -121,7 +122,7 @@ define sqlcli::script (
     #$usql_cmd = "/opt/usql/usql ${db_type}://${db_user}:${db_pwd}@${db_hostname}:${db_port}/${db_name} -f \"${script_file}\""
   }
 
-  $clean_title = regsubst(regsubst($title, ' ', '_', 'G'), '/', '_', 'G')
+
 
   if $run_once {
     $hash = md5($usql_cmd)
@@ -132,14 +133,14 @@ define sqlcli::script (
     $final_usql_cmd = "/var/run/puppetlabs/.sqcli_scripts/execute_${clean_title}.sh"
   }
   if $use_ccm_integration {
-    exec { "ExecuteSqlScript_${$title}":
+    exec { "ExecuteSqlScript_${clean_title}":
       command => $final_usql_cmd,
       cwd     => '/usr/share/ccm',
       creates => "/var/run/puppetlabs/.sqcli_ctrl/${hash}",
       require => Class['ccm_cli::api'],
     }
   }else{
-    exec { "ExecuteSqlScript_${$title}":
+    exec { "ExecuteSqlScript_${clean_title}":
       command => $final_usql_cmd,
       cwd     => '/usr/share/ccm',
       creates => "/var/run/puppetlabs/.sqcli_ctrl/${hash}",
