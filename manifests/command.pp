@@ -123,7 +123,7 @@ define sqlcli::command(
 
   if $run_once {
     $hash = md5($usql_cmd)
-    $final_usql_cmd = "/var/run/puppetlabs/.sqcli_scripts/execute_${clean_title}.sh;  touch /var/run/puppetlabs/.sqcli_ctrl/${hash}"
+    $final_usql_cmd = "/var/run/puppetlabs/.sqcli_scripts/execute_${clean_title}.sh ;  touch /var/run/puppetlabs/.sqcli_ctrl/${hash}"
   }
   else {
     $hash = '--'
