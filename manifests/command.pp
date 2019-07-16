@@ -121,8 +121,10 @@ define sqlcli::command(
 
   $clean_title = regsubst(regsubst($title, ' ', '_', 'G'), '/', '_', 'G')
 
+  $usql_ctrl = "${db_type}_${db_user}_${db_hostname}_${db_port}_${db_name}_${command}"
+
   if $run_once {
-    $hash = md5($usql_cmd)
+    $hash = md5($usql_ctrl)
     $final_usql_cmd = "/var/run/puppetlabs/.sqcli_scripts/execute_${clean_title}.sh ;  touch /var/run/puppetlabs/.sqcli_ctrl/${hash}"
   }
   else {
@@ -135,7 +137,7 @@ define sqlcli::command(
       command => $final_usql_cmd,
       cwd     => '/usr/share/ccm',
       creates => "/var/run/puppetlabs/.sqcli_ctrl/${hash}",
-      require => [Class['ccm_cli::api'], Concat["/var/run/puppetlabs/.sqcli_scripts/execute_${clean_title}.sh"]],,
+      require => [Class['ccm_cli::api'], Concat["/var/run/puppetlabs/.sqcli_scripts/execute_${clean_title}.sh"]],
     }
   }else{
     exec { "ExecuteSqlCmd_${clean_title}":

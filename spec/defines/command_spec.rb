@@ -26,7 +26,7 @@ describe 'sqlcli::command' do
         is_expected.to contain_exec('ExecuteSqlCmd_test')
           .with(
             'command' => '/var/run/puppetlabs/.sqcli_scripts/execute_test.sh',
-            'cwd' => '/usr/share/ccm',
+            'cwd'     => '/usr/share/ccm',
           )
       }
     end

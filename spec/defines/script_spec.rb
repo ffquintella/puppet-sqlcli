@@ -29,7 +29,7 @@ describe 'sqlcli::script' do
       it { is_expected.to contain_class('ccm_cli::api') }
       it { is_expected.to contain_file('/var/run/puppetlabs/.sqcli_ctrl') }
       it {
-        is_expected.to contain_exec('ExecuteSqlScript_/tmp/script.sql')
+        is_expected.to contain_exec('ExecuteSqlScript__tmp_script.sql')
           .with(
             'command' => '/var/run/puppetlabs/.sqcli_scripts/execute__tmp_script.sql.sh',
             'cwd' => '/usr/share/ccm',

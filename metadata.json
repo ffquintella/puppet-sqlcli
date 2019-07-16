@@ -1,6 +1,6 @@
 {
   "name": "ffquintella-sqlcli",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "author": "Felipe Quintella",
   "summary": "This module acts as a multi database sqlclient ",
   "license": "BSD-3-Clause",

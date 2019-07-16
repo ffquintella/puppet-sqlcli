@@ -122,10 +122,10 @@ define sqlcli::script (
     #$usql_cmd = "/opt/usql/usql ${db_type}://${db_user}:${db_pwd}@${db_hostname}:${db_port}/${db_name} -f \"${script_file}\""
   }
 
-
+  $usql_ctrl = "${db_type}_${db_user}_${db_hostname}_${db_port}_${db_name}_${script_file}"
 
   if $run_once {
-    $hash = md5($usql_cmd)
+    $hash = md5($usql_ctrl)
     $final_usql_cmd = "/var/run/puppetlabs/.sqcli_scripts/execute_${clean_title}.sh ; touch /var/run/puppetlabs/.sqcli_ctrl/${hash}"
   }
   else {

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.1.9
+
+**Features**
+
+**Bugfixes**
+
+* Fixed runonce
+
+
 ## Release 1.1.8
 
 **Features**
