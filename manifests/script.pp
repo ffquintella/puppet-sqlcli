@@ -79,7 +79,7 @@ define sqlcli::script (
 
   concat::fragment {"execute_${clean_title}_header":
     target  => "/var/run/puppetlabs/.sqcli_scripts/execute_${clean_title}.sh",
-    content => '#!/bin/env bash',
+    content => "#!/bin/env bash \n",
     order   => '01',
   }
 
@@ -137,13 +137,14 @@ define sqlcli::script (
       command => $final_usql_cmd,
       cwd     => '/usr/share/ccm',
       creates => "/var/run/puppetlabs/.sqcli_ctrl/${hash}",
-      require => Class['ccm_cli::api'],
+      require => [Class['ccm_cli::api'], Concat["/var/run/puppetlabs/.sqcli_scripts/execute_${clean_title}.sh"]],
     }
   }else{
     exec { "ExecuteSqlScript_${clean_title}":
       command => $final_usql_cmd,
       cwd     => '/usr/share/ccm',
       creates => "/var/run/puppetlabs/.sqcli_ctrl/${hash}",
+      require => Concat["/var/run/puppetlabs/.sqcli_scripts/execute_${clean_title}.sh"],
     }
   }
 
