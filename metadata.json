@@ -1,6 +1,6 @@
 {
   "name": "ffquintella-sqlcli",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "author": "Felipe Quintella",
   "summary": "This module acts as a multi database sqlclient ",
   "license": "BSD-3-Clause",
@@ -14,7 +14,7 @@
     },
     {
       "name": "puppetlabs/concat",
-      "version_requirement": ">= 6.0.0 < 7.0.0"
+      "version_requirement": ">= 5.0.0 < 7.0.0"
     }
   ],
   "operatingsystem_support": [
